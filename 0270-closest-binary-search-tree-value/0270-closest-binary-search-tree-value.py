@@ -12,12 +12,18 @@ class Solution:
         def dfs(node):
             if not node:
                 return
-            dfs(node.left)
+            
             diff = abs(target-node.val)
+            
+            if target<node.val:
+                dfs(node.left)
+            else:
+                dfs(node.right)
+                
             if diff<self.mn:
                 self.mn = diff
                 self.node = node.val
-            dfs(node.right)
+                
         dfs(root)
         return self.node
             
