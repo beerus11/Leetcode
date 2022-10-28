@@ -3,9 +3,10 @@ class Solution:
         self.ans = []
         self.dp = {}
         def cs(candidates,i,s,arr):
-            if (i,s,hash(tuple(arr))) in self.dp:
+            if (i,s,tuple(arr)) in self.dp:
                 return
-            self.dp[(i,s,hash(tuple(arr)))]=True
+            self.dp[(i,s,tuple(arr))]=True
+            #print(i,s,arr)
             if s == 0:
                 self.ans.append(tuple(arr[:]))
                 return
@@ -24,7 +25,7 @@ class Solution:
             
             cs(candidates,i+1,s,arr)
             
-            self.dp[(i,s,hash(tuple(arr)))]=True
+            self.dp[(i,s,tuple(arr))]=True
         cs(candidates,0,target,[])
         return set(self.ans)
         
