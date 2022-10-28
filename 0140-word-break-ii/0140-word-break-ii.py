@@ -7,7 +7,7 @@ class Solution:
             for j in range(i,len(word)+1):
                 if word[i:j] in wordDict:
                     w.append(word[i:j])
-                    wb(word,j,w)
+                    status = wb(word,j,w)                       
                     w.pop()
         wb(s,0,[])
         return self.ans
