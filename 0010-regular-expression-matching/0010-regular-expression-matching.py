@@ -5,7 +5,10 @@ class Solution(object):
         :type p: str
         :rtype: bool
         """
+        self.dp = {}
         def dfs(i,j):
+            if (i,j) in self.dp:
+                return self.dp[(i,j)]
             if i>=len(s) and j>=len(p):
                 return True
             if j>=len(p):
@@ -13,10 +16,13 @@ class Solution(object):
             
             match = i<len(s) and (s[i]==p[j] or p[j]==".")
             if j+1<len(p) and p[j+1]=="*":
-                return dfs(i,j+2) or (match and dfs(i+1,j))
+                self.dp[(i,j)]= dfs(i,j+2) or (match and dfs(i+1,j))
+                return self.dp[(i,j)]
             
             if match:
-                return dfs(i+1,j+1)
-            return False
+                self.dp[(i,j)] = dfs(i+1,j+1)
+                return self.dp[(i,j)]
+            self.dp[(i,j)]=False
+            return self.dp[(i,j)]
         return dfs(0,0)
         
