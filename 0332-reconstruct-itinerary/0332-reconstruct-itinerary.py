@@ -2,11 +2,13 @@ from collections import defaultdict
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         path, d = [], defaultdict(list)
-        for a,b in tickets: insort(d[a], b)      # build the graph; insort to return lex-smallest route
+        for a,b in tickets:
+            insort(d[a], b)
         
-        def dfs(loc):                            # check for a path including each flight
-            while d[loc]: dfs(d[loc].pop(0))     # pop off the flight
+        def dfs(loc):
+            while d[loc]:
+                dfs(d[loc].pop(0))
             path.append(loc)
             
         dfs("JFK")
-        return path[::-1]                        # Reverse the path after recursion
+        return path[::-1]
