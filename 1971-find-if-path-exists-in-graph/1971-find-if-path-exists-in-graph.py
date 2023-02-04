@@ -1,20 +1,19 @@
+from collections import defaultdict
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        g = collections.defaultdict(list)
-        
+        g = defaultdict(list)
         for a,b in edges:
             g[a].append(b)
             g[b].append(a)
-        
         visited = set()
-        def dfs(node,dest):
-            if node == dest :
+        def exists(src):
+            if src == destination:
                 return True
-            visited.add(node)
-            for nei in g[node]:
-                if nei not in visited:
-                    if dfs(nei,dest):
-                        return True
+            if src in visited:
+                return False
+            visited.add(src)
+            for nei in g[src]:
+                if exists(nei):
+                    return True
             return False
-        return dfs(source,destination)
-        
+        return exists(source)
