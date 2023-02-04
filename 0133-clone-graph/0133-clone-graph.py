@@ -14,8 +14,10 @@ class Solution:
                 return None
             if o in self.visited:
                 return self.visited[o]
-            clone_node = Node(o.val, [])
+            
+            clone_node = Node(o.val)
             self.visited[o]=clone_node
+            
             if o.neighbors:
                 clone_node.neighbors = [clone(n) for n in o.neighbors]
                 
