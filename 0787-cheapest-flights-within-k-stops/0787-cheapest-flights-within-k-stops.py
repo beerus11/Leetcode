@@ -2,18 +2,18 @@ from collections import defaultdict
 import heapq
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        g = defaultdict(dict)
+        for a,b,c in flights:
+            g[a][b]=c
+        q = [(0,0,src)]
         visited = {}
-        adj = defaultdict(list)
-        for s, d, p in flights:
-            adj[s].append((d, p))
-        pq = [(0, 0, src)]
-        while pq:
-            cost, stops, node = heapq.heappop(pq)
-            if node == dst and stops - 1 <= k:
-                return cost
-            if node not in visited or visited[node] > stops:
-                visited[node] = stops
-                for neighbor, price in adj[node]:
-                    heapq.heappush(pq, (cost + price, stops + 1, neighbor))
+        while q:
+            p,s,n = heapq.heappop(q)
+            if n== dst and s-1<=k:
+                return p
+            if n not in visited or visited[n]>s:
+                visited[n]=s
+                for nei,v in g[n].items():
+                    heapq.heappush(q,(p+v,s+1,nei))
         return -1
         
