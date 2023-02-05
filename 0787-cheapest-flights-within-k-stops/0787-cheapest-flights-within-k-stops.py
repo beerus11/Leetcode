@@ -2,21 +2,18 @@ from collections import defaultdict
 import heapq
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
-        graph = collections.defaultdict(list)
-        for s, d, c in flights:
-            graph[s].append((d, c))
- 
-        pq = [(0, src, 0)] 
-        seen = {}
- 
+        visited = {}
+        adj = defaultdict(list)
+        for s, d, p in flights:
+            adj[s].append((d, p))
+        pq = [(0, 0, src)]
         while pq:
-            curr_cost, curr_node, curr_stops = heapq.heappop(pq)
-            if curr_node == dst:
-                return curr_cost
-            if curr_node not in seen or curr_stops<seen[curr_node]:
-                seen[curr_node]=curr_stops
-                if curr_stops <= k:
-                    for dest, cost in graph[curr_node]:
-                        if dest not in seen or curr_stops+1<seen[dest]:
-                            heapq.heappush(pq, (curr_cost + cost, dest, curr_stops+1))
+            cost, stops, node = heapq.heappop(pq)
+            if node == dst and stops - 1 <= k:
+                return cost
+            if node not in visited or visited[node] > stops:
+                visited[node] = stops
+                for neighbor, price in adj[node]:
+                    heapq.heappush(pq, (cost + price, stops + 1, neighbor))
         return -1
+        
