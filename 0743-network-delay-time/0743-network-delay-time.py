@@ -1,36 +1,23 @@
 from collections import defaultdict
 import heapq
-class Solution(object):
-    def networkDelayTime(self, times, n, k):
-        """
-        :type times: List[List[int]]
-        :type n: int
-        :type k: int
-        :rtype: int
-        """
-        self.g = defaultdict(defaultdict)
-        for a,b,c in times:
-            self.g[a][b] = c
-            
-        self.signal = [float('inf')]*(n+1)
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        g = defaultdict(dict)
         
-        self.signal[k]=0
-        heap = [(0,k)]
-        
-        while heap:
-            current_time,node = heapq.heappop(heap)
-            if current_time>self.signal[node]:
+        for s,d,t in times:
+            g[s][d]=t
+        signalRcvd = [float('inf')]*(n+1)
+        signalRcvd[0]=0
+        signalRcvd[k]=0
+        q = [(k,0)]
+        while q:
+            n,t = heapq.heappop(q)
+            if t> signalRcvd[n]:
                 continue
-            if node not in self.g:
-                continue
-
-            for nei,nei_time in self.g[node].items():
-                arrival_time = current_time + nei_time
-                if self.signal[nei]> arrival_time:
-                    self.signal[nei] = arrival_time
-                    heapq.heappush(heap,(arrival_time,nei))
-                             
-        m = max(self.signal[1:])
-        if m==float('inf'):
-            return -1
-        return m
+            for nei,v in g[n].items():
+                if signalRcvd[nei]>t+v:
+                    signalRcvd[nei] = t+v
+                    heapq.heappush(q,(nei,t+v))
+        mx = max(signalRcvd)
+        print(signalRcvd)
+        return mx if mx!=float('inf') else -1
