@@ -1,39 +1,36 @@
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        WORD_KEY = '$'
-        matched = []
+        WORD_KEY = "$"
         trie = {}
-        for word in words:
+        for w in words:
             node = trie
-            for letter in word:
-                # retrieve the next node; If not found, create a empty node.
-                node = node.setdefault(letter, {})
-            # mark the existence of a word in trie node
-            node[WORD_KEY] = word
-        
-        def dfs(r,c,parent):
+            for l in w:
+                node = node.setdefault(l,{})
+            node[WORD_KEY]=w
+            
+        rows,cols = len(board),len(board[0])
+        matchedWords = []
+        def bt(r,c,parent):
             l = board[r][c]
-            n = parent[l]
-            
-            word_match = n.pop(WORD_KEY,False)
+            cn = parent[l]
+            word_match = cn.pop(WORD_KEY,False)
             if word_match:
-                matched.append(word_match)
-            board[r][c] = "#"
-            
-            for ro,co in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
-                newRow, newCol = r + ro, c + co 
-                if newRow < 0 or newRow >= len(board) or newCol < 0 or newCol >= len(board[0]):
+                matchedWords.append(word_match)
+            board[r][c]="#"
+            for (rowOffset, colOffset) in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+                newRow, newCol = r + rowOffset, c + colOffset
+                if newRow < 0 or newRow >= rows or newCol < 0 or newCol >= cols:
+                        continue
+                if not board[newRow][newCol] in cn:
                     continue
-                if not board[newRow][newCol] in n:
-                    continue
-                dfs(newRow,newCol,n)
-            board[r][c] = l
-            
-            if not n:
-                parent.pop(l)
+                bt(newRow,newCol,cn)
+            board[r][c]=l
         
-        for r in range(len(board)):
-            for c in range(len(board[0])):
-                if board[r][c] in trie:
-                    dfs(r,c,trie)
-        return matched
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j] in trie:
+                    bt(i,j,trie)
+                    
+        return matchedWords
+                
+        
