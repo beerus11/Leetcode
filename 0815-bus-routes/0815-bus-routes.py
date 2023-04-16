@@ -1,26 +1,30 @@
-from collections import defaultdict
+from collections import deque
 class Solution:
     def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
-        if source == target:
+        if source==target:
             return 0
-        g = defaultdict(set)
+        g = defaultdict(list)
         
-        for i,v in enumerate(routes):
-            for s in v:
-                g[s].add(i)
+        for k,v in enumerate(routes):
+            for r in v:
+                g[r].append(k)
+        q = deque([(source,0)])
         
-        q = [(source,0)]
-        
-        seen_stops,seen_bus= set(),set()
+        seen_stops = set()
+        seen_bus = set()
         while q:
-            s,c= q.pop(0)
-            if s==target:
-                return c
-            for bus_no in g[s]:
+            node,count = q.popleft()
+            if node == target:
+                return count
+            for bus_no in g[node]:
                 if bus_no not in seen_bus:
                     seen_bus.add(bus_no)
                     for stop in routes[bus_no]:
                         if stop not in seen_stops:
-                            q.append((stop,c+1))
+                            seen_stops.add(stop)
+                            q.append((stop,count+1))
         return -1
-            
+                    
+                
+                
+        
