@@ -10,7 +10,6 @@ class Solution:
         mod = 1000000007
         
         def fn(node): 
-            """Return sum of sub-tree."""
             if not node: return 0 
             ans = node.val + fn(node.left) + fn(node.right)
             vals.append(ans)
