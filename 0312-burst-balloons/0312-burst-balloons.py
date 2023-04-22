@@ -1,19 +1,17 @@
 class Solution:
     def maxCoins(self, nums: List[int]) -> int:
         nums = [1]+nums+[1]
-        self.d = {}
-        def dp(l,r):
-            if (l,r) in self.d:
-                return self.d[(l,r)]
-            if l>r:
+        
+        print(nums)
+        
+        @lru_cache(None)
+        def mc(l,r):
+            if r>r:
                 return 0
-            result = 0
-            #print(l,r)
+            mx = 0
             for i in range(l,r+1):
-                gain = nums[l-1]*nums[i]*nums[r+1]
-                rem = dp(l,i-1)+dp(i+1,r)
-                
-                result = max(result,rem+gain)
-            self.d[(l,r)]= result
-            return self.d[(l,r)]
-        return dp(1,len(nums)-2)
+                a = nums[l-1]*nums[i]*nums[r+1]
+                x = mc(l,i-1)+mc(i+1,r)
+                mx = max(mx,a+x)
+            return mx
+        return mc(1,len(nums)-2)
