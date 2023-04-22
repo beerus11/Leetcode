@@ -12,7 +12,7 @@ class Solution:
             if not node:
                 return ''
             l,r = dfs(node.left),dfs(node.right)
-            struct = f'l{l}{node.val}{r}r'
+            struct = 'l%s_%s_%sr'%(l,str(node.val),r)
             self.hm[struct]+=1
             if self.hm[struct]==2:
                 self.res.append(node)
