@@ -1,9 +1,9 @@
-from collections import defaultdict,Counter
+from collections import defaultdict
 class Solution:
-    def alienOrder(self, words: List[str]) -> str:
-        
-        indegree = Counter({c : 0 for word in words for c in word})
+    def alienOrder(self, words: List[str]) -> str:   
+        indegree = {c : 0 for word in words for c in word}
         g = defaultdict(list)
+        
         for i in range(len(words)-1):
             for a,b in list(zip(words[i],words[i+1])):
                 if a!=b:
@@ -34,7 +34,6 @@ class Solution:
             return ""
                     
         return "".join(order)
-                
         
-            
+                    
         
