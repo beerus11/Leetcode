@@ -8,21 +8,19 @@ class Node:
 
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
-        self.visited = {}
-        def clone(o):
-            if not o:
-                return None
-            if o in self.visited:
-                return self.visited[o]
+        visited = {}
+        def clone(n):
+            if not n:
+                return
+            if n in visited:
+                return visited[n]
             
-            clone_node = Node(o.val)
-            self.visited[o]=clone_node
-            
-            if o.neighbors:
-                clone_node.neighbors = [clone(n) for n in o.neighbors]
-                
-                
-            return clone_node
+            nd = Node(n.val)
+            visited[n]=nd
+            if not n.neighbors:
+                return nd
+            for nei in n.neighbors:
+                nd.neighbors.append(clone(nei))
+            return nd
         return clone(node)
-        
         
