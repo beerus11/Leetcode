@@ -1,3 +1,4 @@
+import random
 class RandomizedSet:
 
     def __init__(self):
@@ -6,31 +7,29 @@ class RandomizedSet:
         
 
     def insert(self, val: int) -> bool:
-        #print("insert",self.arr,self.d)
         if val in self.d:
             return False
         self.arr.append(val)
         self.d[val]=len(self.arr)-1
         return True
+        
 
     def remove(self, val: int) -> bool:
         if val not in self.d:
             return False
-        #print("remove",self.arr,self.d)
-        ind = self.d[val]
+        idx = self.d[val]
         l = len(self.arr)-1
-        self.arr[l],self.arr[ind]=self.arr[ind],self.arr[l]
-        del self.d[val]
-        if ind!=l:
-            self.d[self.arr[ind]]=ind
+        self.arr[idx],self.arr[-1] = self.arr[-1],self.arr[idx]
         self.arr.pop()
+        if idx!=l:
+            self.d[self.arr[idx]]=idx
+        del self.d[val]
         return True
         
 
     def getRandom(self) -> int:
-        x = int(random.random()*len(self.arr))
-        #print(self.arr,self.d)
-        return self.arr[x]
+        a = int(random.random()*(len(self.arr)))
+        return self.arr[a]
         
 
 
