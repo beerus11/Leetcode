@@ -1,4 +1,3 @@
-from collections import defaultdict
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         g = defaultdict(list)
@@ -6,14 +5,15 @@ class Solution:
             g[a].append(b)
             g[b].append(a)
         visited = set()
-        def exists(src):
-            if src == destination:
+        def dfs(src,des):
+            if src == des:
                 return True
-            if src in visited:
-                return False
             visited.add(src)
             for nei in g[src]:
-                if exists(nei):
-                    return True
+                if nei not in visited:
+                    if dfs(nei,des):
+                        return True
             return False
-        return exists(source)
+            
+        return dfs(source,destination)
+        
