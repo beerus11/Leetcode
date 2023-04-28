@@ -12,7 +12,7 @@ class Solution:
                 return
             self.d[n]=d
             for nei in g[n]:
-                if (nei not in self.d) or d+1< self.d[nei]:
+                if (nei not in self.d):
                     dfs(nei,d+1)
         d1,d2 = {},{}
         dfs(node1,0)
