@@ -7,8 +7,6 @@ class Solution:
         visited = set()   
         def dfs(node):
             count = 1
-            if node in visited:
-                return count
             visited.add(node)
             for nei in g[node]:
                 if nei not in visited:
