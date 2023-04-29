@@ -1,20 +1,18 @@
 import heapq
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
-        adj = defaultdict(list)
-        for s, d, p in flights:
-            adj[s].append((d, p))
-        queue = deque()
-        queue.append((src, 0))
-        costs = [float("inf")] * n
-        while queue and k >= 0:
-            m = len(queue)
-            for _ in range(m):
-                curr, cost = queue.popleft()
-                for node, price in adj[curr]:
-                    if cost + price < costs[node]:
-                        costs[node] = cost + price
-                        queue.append((node, costs[node]))
-            k -= 1
-        return costs[dst] if costs[dst] != float("inf") else -1
+        g = defaultdict(dict)
+        for a,b,c in flights:
+            g[a][b]=c
+        q = [(0,0,src)]
+        visited = {}
+        while q:
+            p,s,n = heapq.heappop(q)
+            if n== dst and s-1<=k:
+                return p
+            if n not in visited or visited[n]>s:
+                visited[n]=s
+                for nei,v in g[n].items():
+                    heapq.heappush(q,(p+v,s+1,nei))
+        return -1
         
