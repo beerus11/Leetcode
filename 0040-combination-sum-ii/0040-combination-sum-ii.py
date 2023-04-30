@@ -1,30 +1,23 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        def backtrack(comb, remain, curr, results):
+            if remain == 0:
+                results.append(list(comb))
+                return
+
+            for next_curr in range(curr, len(candidates)):
+                if next_curr > curr \
+                  and candidates[next_curr] == candidates[next_curr-1]:
+                    continue
+                pick = candidates[next_curr]
+                if remain - pick < 0:
+                    break
+                comb.append(pick)
+                backtrack(comb, remain - pick, next_curr + 1, results)
+                comb.pop()
+
         candidates.sort()
-        self.ans = set()
-        self.dp = {}
-        def cs(candidates,i,s,arr):
-            k = tuple(arr)
-            if (i,s,k) in self.dp:
-                return
-            if s==0:
-                self.ans.add(tuple(arr[:]))
-                self.dp[(i,s,k)]=True
-                return
-            if i == len(candidates):
-                self.dp[(i,s,k)]=True
-                return
-            if candidates[i]>s:
-                cs(candidates,i+1,s,arr)
-                self.dp[(i,s,k)]=True
-                return 
-            
-            arr.append(candidates[i])
-            cs(candidates,i+1,s-candidates[i],arr)
-            arr.pop()
-            
-            cs(candidates,i+1,s,arr)
-            self.dp[(i,s,k)]=True
-            
-        cs(candidates,0,target,[])
-        return self.ans
+
+        comb, results = [], []
+        backtrack(comb, target, 0, results)
+        return results
