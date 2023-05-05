@@ -10,13 +10,10 @@ class Solution:
             return 0
         if not root.left and not root.right:
             return 1
-        
         depth = []
         if root.left:
             depth.append(self.minDepth(root.left))
-            
         if root.right:
             depth.append(self.minDepth(root.right))
-            
         return 1+min(depth)
         
