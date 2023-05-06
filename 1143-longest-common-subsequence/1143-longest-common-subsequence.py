@@ -1,17 +1,10 @@
 class Solution:
-    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        self.dp = {}
-        def lcs(s,t,i,j):
-            if i == len(s) or j == len(t):
+    def longestCommonSubsequence(self, t1: str, t2: str) -> int:
+        @lru_cache(None)
+        def lcs(i,j):
+            if i==len(t1) or j==len(t2):
                 return 0
-            if (i,j) in self.dp:
-                return self.dp[(i,j)]
-            if s[i]==t[j]:
-                self.dp[(i,j)] = 1+ lcs(s,t,i+1,j+1)
-            else:
-                a = lcs(s,t,i+1,j)
-                b = lcs(s,t,i,j+1)
-                self.dp[(i,j)] = max(a,b)
-            return self.dp[(i,j)]
-        return lcs(text1,text2,0,0)
-        
+            if t1[i]==t2[j]:
+                return 1+ lcs(i+1,j+1)
+            return max(lcs(i+1,j),lcs(i,j+1))
+        return lcs(0,0)
