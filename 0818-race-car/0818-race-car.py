@@ -16,5 +16,6 @@ class Solution:
                 if (p+s>target and s>0) or (p+s<target and s<0):
                     s = -1 if s>0 else 1
                     q.append((m+1,p,s))
+                    
                 
         
