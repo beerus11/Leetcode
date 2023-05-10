@@ -1,28 +1,13 @@
-class Solution(object):
-    def isMatch(self, s, p):
-        """
-        :type s: str
-        :type p: str
-        :rtype: bool
-        """
-        self.dp = {}
-        def dfs(i,j):
-            if (i,j) in self.dp:
-                return self.dp[(i,j)]
-            if i>=len(s) and j>=len(p):
-                return True
-            if j>=len(p):
-                return False
-            
-            match = i<len(s) and (s[i]==p[j] or p[j]==".")
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        @lru_cache(None)
+        def match(i,j):
+            if j==len(p):
+                return i==len(s)
+            first_match = i<len(s) and p[j] in {s[i],'.'}
+
             if j+1<len(p) and p[j+1]=="*":
-                self.dp[(i,j)]= dfs(i,j+2) or (match and dfs(i+1,j))
-                return self.dp[(i,j)]
-            
-            if match:
-                self.dp[(i,j)] = dfs(i+1,j+1)
-                return self.dp[(i,j)]
-            self.dp[(i,j)]=False
-            return self.dp[(i,j)]
-        return dfs(0,0)
-        
+                return match(i,j+2) or (first_match and match(i+1,j))
+            else:
+                return first_match and match(i+1,j+1)
+        return match(0,0)
