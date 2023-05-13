@@ -1,26 +1,22 @@
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
 #         self.left = left
 #         self.right = right
-from collections import defaultdict
-class Solution(object):
-    def findLeaves(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
-        self.hm = defaultdict(list)
-        def height(node):
-            if not node:
+class Solution:
+    def findLeaves(self, root: Optional[TreeNode]) -> List[List[int]]:
+        def order(root, dic):
+            if not root:
                 return 0
-          
-            l = height(node.left)
-            r = height(node.right)
-            
-            h = 1+max(l,r)
-            self.hm[h].append(node.val)
-            return h
-        height(root)
-        return self.hm.values()
+            left = order(root.left, dic)
+            right = order(root.right, dic)
+            lev = max(left, right) + 1
+            dic[lev].append(root.val)
+            return lev
+        dic, ret = collections.defaultdict(list), []
+        order(root, dic)
+        for i in range(1, len(dic) + 1):
+            ret.append(dic[i])
+        return ret
+        
