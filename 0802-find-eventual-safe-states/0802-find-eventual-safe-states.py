@@ -1,20 +1,18 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        WHITE,BLACK,GRAY = 0,1,2
-        color = collections.defaultdict(int)
-        
+        W,G,B = 0,1,2
+        colors = defaultdict(int)
         def dfs(node):
-            if color[node]!=WHITE:
-                return color[node]==BLACK
-            
-            color[node]=GRAY
+            if colors[node]!=W:
+                return colors[node]==B
+            colors[node]=G
             for nei in graph[node]:
-                if color[nei]==BLACK:
+                if colors[nei]==B:
                     continue
-                if color[nei]==GRAY or not dfs(nei):
+                if colors[nei]==G or not dfs(nei):
                     return False
-            color[node]=BLACK
+            colors[node]=B
             return True
-        return filter(dfs,range(len(graph)))
         
+        return list(filter(dfs,range(len(graph))))
         
