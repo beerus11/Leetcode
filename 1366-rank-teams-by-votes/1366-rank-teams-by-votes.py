@@ -8,9 +8,7 @@ class Solution:
                 else:
                     hashMap[char] = [0] * len(vote)
                     hashMap[char][indx] += 1
-        
-        result = sorted(list(hashMap.keys()))
-        result = sorted(result, key = lambda x: hashMap[x], reverse=True)
+        result = sorted(hashMap.keys(), key = lambda x: (hashMap[x],-1*ord(x)), reverse=True)
         
         return "".join(result)
                 
