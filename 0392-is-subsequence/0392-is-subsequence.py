@@ -1,20 +1,10 @@
-class Solution(object):
-    def isSubsequence(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
-        if s=="":
-            return True
-        if t=="":
-            return False
-        i,j= 0,0
-        while i< len(t):
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        i,j=0,0
+        while i <len(t) and j <len(s):
             if t[i]==s[j]:
                 j+=1
-            if j==len(s):
-                return True
             i+=1
-        return False
+        return j==len(s)
+        
         
