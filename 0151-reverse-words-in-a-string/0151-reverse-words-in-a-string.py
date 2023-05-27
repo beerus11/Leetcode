@@ -1,10 +1,5 @@
-class Solution(object):
-    def reverseWords(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        arr = s.split(" ")[::-1]
-        arr = [i for i in arr if len(i)>0]
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        arr = list(filter(lambda x:len(x)>0,s.strip().split(" ")[::-1]))
         return " ".join(arr)
         
