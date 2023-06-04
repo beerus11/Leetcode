@@ -7,7 +7,6 @@ class Logger:
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
         ans = []
         if timestamp in self.logs and message in self.logs[timestamp]:
-            print(self.logs)
             return False
         start = 0 if timestamp-9<0 else timestamp-9
         for i in range(start,timestamp):
