@@ -13,12 +13,10 @@ class Solution:
 
             elif prev_start < curr_start:
                 if prev_end != curr_end:
-                    prev_start = prev_end
-                    prev_end = curr_end
-                    
-                else:
+                    prev_start = prev_end    
+                elif prev_end==curr_end :
                     prev_start = curr_end-1
-                    prev_end = curr_end
+                prev_end = curr_end
 
                 size += 1
 
