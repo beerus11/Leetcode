@@ -15,9 +15,8 @@ class Solution:
                 if prev_end != curr_end:
                     prev_start = prev_end    
                 elif prev_end==curr_end :
-                    prev_start = curr_end-1
+                    prev_start = prev_end-1
                 prev_end = curr_end
-
                 size += 1
 
         return size
