@@ -9,7 +9,6 @@ class Solution:
             return nums[0]
         
         while l<=r:
-            print(l,r)
             mid = l + (r-l)//2
             if nums[mid]>nums[mid+1]:
                 return nums[mid+1]
