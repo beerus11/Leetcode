@@ -6,7 +6,6 @@ class Solution:
                 return triangle[i][j]
             if i == len(triangle)-1 and j >len( triangle[i])-1:
                 return float('inf')
-            print(j,j+1)
             a = mnp(i+1,j)
             b = mnp(i+1,j+1)
             return triangle[i][j]+min(a,b)
