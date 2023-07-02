@@ -19,7 +19,7 @@ class Solution:
         p1,p2 = [],[]
         getp(p,p1)
         getp(q,p2)
+        p2s = set([x.val for x in p2])
         for i in p1:
-            for j in p2:
-                if i==j:
-                    return i
+            if i.val in p2s:
+                return i
