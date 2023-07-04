@@ -7,7 +7,6 @@ class Solution:
         
         meetings.sort(key=lambda x:x[0])
         for a,b in meetings:
-            #print("heap",heap,"rh",rh)
             while heap and heap[0][0]<=a:
                 heapq.heappush(rh,heapq.heappop(heap)[1])
             if rh:
@@ -17,7 +16,6 @@ class Solution:
                 x,room = heapq.heappop(heap)
                 heapq.heappush(heap,(b-a+x,room))
             d[room]+=1
-        #print(d)
         arr = sorted(d.items(),key= lambda x:(x[1],-1*x[0]),reverse=True)
         return arr[0][0]
             
