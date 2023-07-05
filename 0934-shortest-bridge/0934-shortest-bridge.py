@@ -21,9 +21,7 @@ class Solution:
                         dfs(i,j,0)
                         return
         mark_one()
-        #print(grid,self.q)
         q = self.q
-        visited = set()
         while q:
             i,j,l = q.popleft()
             for a,b in [[1,0],[0,1],[-1,0],[0,-1]]:
