@@ -1,19 +1,21 @@
-from collections import defaultdict
+class DSU(object):
+    def __init__(self):
+        self.par = list(range(1001))
+    
+    def find(self,x):
+        if self.par[x]!=x:
+            self.par[x] = self.find(self.par[x])
+        return self.par[x]
+    def union(self,x,y):
+        xr,yr = self.find(x),self.find(y)
+        if xr == yr:
+            return False
+        self.par[self.find(x)] = self.find(y)
+        return True
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        graph = defaultdict(set)
+        dsu = DSU()
+        for edge in edges:
+            if not dsu.union(*edge):
+                return edge
         
-        def dfs(src,dest):
-            if src not in seen:
-                seen.add(src)
-                if src==dest:
-                    return True
-                return any([dfs(nei,dest) for nei in graph[src]])
-            
-        
-        for u,v in edges:
-            seen = set()
-            if u in graph and v in graph and dfs(u,v):
-                return u,v
-            graph[u].add(v)
-            graph[v].add(u)
