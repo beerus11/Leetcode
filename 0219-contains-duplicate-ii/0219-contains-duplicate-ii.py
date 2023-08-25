@@ -1,16 +1,7 @@
-class Solution(object):
-    def containsNearbyDuplicate(self, nums, t):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: bool
-        """
-        hm = {}
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], key: int) -> bool:
+        hm = defaultdict(int)
         for k,v in enumerate(nums):
-            if v in hm and k-hm[v]<=t:
+            if v in hm and k-hm[v]<=key:
                 return True
-            else:
-                hm[v]=k
-        return False
-        
-        
+            hm[v]=k
