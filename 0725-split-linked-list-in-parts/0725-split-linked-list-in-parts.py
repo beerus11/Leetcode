@@ -10,7 +10,7 @@ class Solution:
             if not cur:
                 break
             cur = cur.next
-        width, remainder = divmod(N, k)
+        w, r = divmod(N, k)
 
         
         ans = []
@@ -18,7 +18,7 @@ class Solution:
         
         for i in range(k):
             head = cur
-            for j in range(width+(i<remainder)-1):
+            for j in range(w+(i<r)-1):
                 if cur:
                     cur = cur.next
             if cur:
