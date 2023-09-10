@@ -1,40 +1,37 @@
-from collections import defaultdict
-class Solution(object):
-    def findAllRecipes(self, recipes, ingredients, supplies):
-        """
-        :type recipes: List[str]
-        :type ingredients: List[List[str]]
-        :type supplies: List[str]
-        :rtype: List[str]
-        """
+class Solution:
+    def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
+
+        indegree = {}
+        ss = set(supplies)
+        rs = set(recipes)
+        
+        for r in recipes:
+            indegree[r]=0
+            
+        for k,items in enumerate(ingredients):
+            for item in items:
+                indegree[item]=0
         
         g = defaultdict(list)
-        all_ingredients = [item for i in ingredients for item in i]
-        indegree = {i:0 for i in all_ingredients+recipes }
-        recipes_set = set(recipes)
-        supplies_set = set(supplies)
-        
-        for k,i in enumerate(ingredients):
-            for item in i:
+        for k,items in enumerate(ingredients):
+            for item in items:
                 g[item].append(recipes[k])
                 indegree[recipes[k]]+=1
-        q = [item for item,deg in indegree.items() if deg ==0]
+                
+        q = [k for k,v in indegree.items() if v==0 and k in ss]
+        # print(q)
+        # print(indegree)
+        # print(g)
+        
         ans = []
         while q:
-            item = q.pop(0)
-            if item in recipes_set:
-                ans.append(item)
-                supplies_set.add(item)
-                
-            if item not in supplies_set:
-                continue
-                
-            for nei in g[item]:
+            node = q.pop(0)
+            if node in rs:
+                ans.append(node)
+            for nei in g[node]:
                 indegree[nei]-=1
                 if indegree[nei]==0:
                     q.append(nei)
-                    
+        #print(indegree)
         return ans
-            
-            
         
