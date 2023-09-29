@@ -15,9 +15,7 @@ class Solution:
         if newInterval[0]<intervals[0][0]:
             ans.append([min(x,intervals[0][0]),max(y,intervals[0][1])])
             insert = True
-        #print(ans)   
         for a,b in intervals:
-            print(ans,a,b,x,y,a<= x <=b)
             if not insert and (a<= x <=b or a<= y <=b):
                 ans.append([min(a,x),max(b,y)])
                 insert = True
@@ -26,7 +24,6 @@ class Solution:
                 ans.append([a,b])
                 insert = True
             elif not insert and a>x:
-                print("here")
                 ans.append([min(a,x),max(b,y)])
                 insert = True
             else:
