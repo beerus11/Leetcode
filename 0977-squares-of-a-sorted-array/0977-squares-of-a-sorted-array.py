@@ -9,7 +9,6 @@ class Solution:
             i = i-1
         ans = []
         i,j=i,i+1
-        print(i,j)
         while i>-1 or j<len(nums):
             if i==-1:
                 ans.append(abs(nums[j])**2)
