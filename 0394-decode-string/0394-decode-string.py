@@ -4,7 +4,6 @@ class Solution:
         cst = []
         i = 0
         while i < len(s):
-            #print(dst,cst)
             ch = s[i]
             no = 0
             while s[i].isdigit():
