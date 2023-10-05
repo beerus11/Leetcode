@@ -22,7 +22,7 @@ class Solution:
                 count2-=1
         ans = []
         for i in [cand1,cand2]:
-            if nums.count(i)> len(nums)//3:
+            if nums.count(i)> len(nums)/3:
                 ans.append(i)
                 
         return ans
