@@ -6,9 +6,7 @@ class Solution:
                 return 1
             mxp = 1
             for i in range(1,x):
-                a = i*maxP(x-i)
-                b = i*(x-i)
-                mxp = max(mxp,max(a,b))
+                mxp = max(mxp,max(i*maxP(x-i),i*(x-i)))
             return mxp
         return maxP(n)
                 
