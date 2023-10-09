@@ -9,7 +9,6 @@ class Solution:
             end = min(n,i+ranges[i])
             for j in range(start,end+1):
                 dp[end]=min(dp[end],dp[j]+1)
-        print(dp)
         if dp[n]==inf:
             return -1
         
