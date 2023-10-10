@@ -4,20 +4,11 @@ class Solution:
         if s%2!=0:
             return False
         t = s/2
-        self.dp = {}
-        def ss(nums,sm,i):
-            if (sm,i) in self.dp:
-                return self.dp[(sm,i)]
-            if i>=len(nums):
-                self.dp[(sm,i)] = False
-                return self.dp[(sm,i)]
-            if sm == t:
-                self.dp[(sm,i)] =  True
-                return self.dp[(sm,i)]
-            a = ss(nums,sm+nums[i],i+1)
-            if a:
-                self.dp[(sm,i)] = True
+        @lru_cache(None)
+        def ss(i,t):
+            if i== len(nums):
+                return False
+            if t==0:
                 return True
-            self.dp[(sm,i)] = ss(nums,sm,i+1)
-            return self.dp[(sm,i)]
-        return ss(nums,0,0)
+            return ss(i+1,t) or ss(i+1,t-nums[i])
+        return ss(0,t)
