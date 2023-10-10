@@ -4,8 +4,6 @@ class Solution:
         nums.sort()
         print(nums)
         for i in range(len(nums)):
-            if nums[i]>0:
-                break
             if i==0 or nums[i]!=nums[i-1]:
                 self.two_sum(nums,i)
         return self.res
