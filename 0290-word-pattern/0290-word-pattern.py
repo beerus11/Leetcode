@@ -1,23 +1,24 @@
 class Solution:
-    def wordPattern(self, pattern: str, s: str) -> bool:
-        p_map = {}
-        w_map = {}
-        words = s.split()
-        
-        if len(words)!=len(pattern):
+    def wordPattern(self, p: str, s: str) -> bool:
+        arr = s.split(" ")
+        if len(arr)!=len(p):
+            print("k",len(arr),len(s))
             return False
-        
-        for i in range(len(words)):
-            w = words[i]
-            p = pattern[i]
-            print(w,p,p_map)
-            if p in p_map:
-                if p_map[p]!=w:
-                    return False
-            elif w in w_map:
+        m1 = {}
+        m2 = {}
+        for k,v in enumerate(arr):
+            x,y=v,p[k]
+            #print(k,v,m1,m2)
+            if x in m1 and y not in m2:
                 return False
-            else:
-                p_map[p]=w
-                w_map[w]=p
+            if x in m1 and m1[x]!=y:
+                #print("b")
+                return False
+            if x not in m1 and y in m2:
+                return False
+            if y in m2 and m2[y]!=x:
+                return False
+            m1[x]=y
+            m2[y]=x
         return True
-        
+                
