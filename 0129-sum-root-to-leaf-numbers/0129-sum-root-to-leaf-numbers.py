@@ -6,19 +6,12 @@
 #         self.right = right
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        self.ans = 0
-        def dfs(node,arr=[]):
+        ts = 0
+        def dfs(node,t):
             if not node:
-                return
-            arr.append(node.val)
-            dfs(node.left)
-            dfs(node.right)
+                return 0
             if not node.left and not node.right:
-                x = "".join(map(str,arr))
-                self.ans+=int(x)
-                arr.pop()
-            elif len(arr)>0:
-                arr.pop()
-        dfs(root)
-        return self.ans
-            
+                return t*10+node.val
+            x = t*10 + node.val
+            return dfs(node.left,x)+dfs(node.right,x)
+        return dfs(root,0)
