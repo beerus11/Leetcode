@@ -1,16 +1,14 @@
 class Solution:
-    def numFactoredBinaryTrees(self, A: List[int]) -> int:
-        MOD = 10 ** 9 + 7
-        N = len(A)
-        A.sort()
-        dp = [1] * N
-        index = {x: i for i, x in enumerate(A)}
-        for i, x in enumerate(A):
-            for j in range(i):
-                if x % A[j] == 0:
-                    right = x // A[j]
-                    if right in index:
-                        dp[i] += dp[j] * dp[index[right]]
-                        dp[i] %= MOD
-
-        return sum(dp) % MOD
+    def numFactoredBinaryTrees(self, arr: List[int]) -> int:
+        mod = 10**9+7
+        arr.sort()
+        dp = [1]*len(arr)
+        hm = {v:k for k,v in enumerate(arr)}
+        for k,v in enumerate(arr):
+            for j in range(k):
+                if v%arr[j]==0:
+                    node = v//arr[j]
+                    if node in hm:
+                        dp[k]+=(dp[j]*dp[hm[node]])
+                        dp[k]%=mod
+        return sum(dp)%mod
