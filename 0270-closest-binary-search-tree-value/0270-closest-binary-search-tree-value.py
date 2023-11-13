@@ -4,26 +4,15 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-import math
 class Solution:
     def closestValue(self, root: Optional[TreeNode], target: float) -> int:
-        self.mn = float('inf')
-        self.node = None
-        def dfs(node):
-            if not node:
-                return
-            
-            diff = abs(target-node.val)
-            
-            if target<node.val:
-                dfs(node.left)
-            else:
-                dfs(node.right)
+        cv = root.val
+        while root:
+            cv = min(root.val, cv, key = lambda x: (abs(target - x), x))
+            root = root.left if target< root.val else root.right
+        return cv
                 
-            if diff<self.mn:
-                self.mn = diff
-                self.node = node.val
                 
-        dfs(root)
-        return self.node
-            
+                
+        
+        
