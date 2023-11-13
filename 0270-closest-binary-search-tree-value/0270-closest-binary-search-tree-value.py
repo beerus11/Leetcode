@@ -8,7 +8,10 @@ class Solution:
     def closestValue(self, root: Optional[TreeNode], target: float) -> int:
         cv = root.val
         while root:
-            cv = min(root.val, cv, key = lambda x: (abs(target - x), x))
+            if abs(target-root.val)<abs(target-cv):
+                cv = root.val
+            elif abs(target-root.val)==abs(target-cv):
+                cv = min(cv,root.val)
             root = root.left if target< root.val else root.right
         return cv
                 
