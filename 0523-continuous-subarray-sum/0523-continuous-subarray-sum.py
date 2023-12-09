@@ -1,18 +1,13 @@
-class Solution(object):
-    def checkSubarraySum(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: bool
-        """
-        m = {0:0}
-        s = 0
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        hm = {0:-1}
+        total  = 0
         for i in range(len(nums)):
-            s+=nums[i]
-            if s%k not in m:
-                m[s%k] = i+1
-            elif m[s%k]<i:
+            total+=nums[i]
+            rem = total%k
+            if rem not in hm:
+                hm[rem]=i
+            elif i-hm[rem]>1:
                 return True
         return False
-            
-            
+        
