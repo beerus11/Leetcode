@@ -10,7 +10,6 @@ class Solution:
                 continue
             else:
                 count+=1
-                a,b = intervals[i][0],intervals[i][1]
             x = intervals[i][1]
         
         return count
