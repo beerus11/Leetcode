@@ -11,9 +11,7 @@ class Solution:
                 i+=1
             if i<=len(x)-1 and i<=len(y)-1:
                 return self.hm[x[i]]<self.hm[y[i]]
-            if i<len(x):
-                return False
-            return True
+            return i>=len(x)
         for i in range(1,len(words)):
             if not compare(words[i-1],words[i]):
                 return False
