@@ -1,13 +1,14 @@
 class Solution:
     def shortestPathLength(self, graph: List[List[int]]) -> int:
-        if len(graph) == 1:
+        if len(graph)==1:
             return 0
         
         n = len(graph)
-        ending_mask = (1 << n) - 1
-        q = [(node, 1 << node) for node in range(n)]
+        ending_mask = (1<<n) - 1
+        q = [(i,1<<i) for i in range(n)]
         seen = set(q)
-        steps  = 0
+        steps =0
+        
         while q:
             nq = []
             for i in range(len(q)):
