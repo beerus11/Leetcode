@@ -9,11 +9,9 @@ class Solution:
                 if self.hm[x[i]]>self.hm[y[i]]:
                     return False
                 i+=1
-            print(i)
             if i<=len(x)-1 and i<=len(y)-1:
                 return self.hm[x[i]]<self.hm[y[i]]
-            print("h")
-            if i<len(x) and len(x)>len(y):
+            if i<len(x):
                 return False
             return True
         for i in range(1,len(words)):
