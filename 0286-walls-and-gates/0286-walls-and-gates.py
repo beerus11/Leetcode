@@ -19,5 +19,4 @@ class Solution:
                     continue
                 q.append((x,y,d+1))
                 rooms[x][y]= d+1
-        print(rooms)
                     
