@@ -4,6 +4,8 @@ class Solution:
         q = [0]
         total = 0
         seen = set()
+        if targetCapacity>jug1Capacity+jug2Capacity:
+            return False
         while q:
             node = q.pop(0)
             for e in edges:
