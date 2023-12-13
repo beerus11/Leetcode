@@ -4,9 +4,9 @@ class Solution:
         seen = set()
         while q:
             s,o = heapq.heappop(q)
-            if o<0 or o in seen:
+            if o<0 or (o,s) in seen:
                 continue
-            seen.add(o)
+            seen.add((o,s))
             if o==0:
                 return s
             if o%3==0:
