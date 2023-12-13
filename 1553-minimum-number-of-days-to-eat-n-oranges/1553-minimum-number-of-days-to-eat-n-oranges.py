@@ -17,5 +17,5 @@ class Solution:
                 heapq.heappush(q,(s+1,o-x))
             heapq.heappush(q,(s+1,o-1))
         
-        return mn
+        return -1
         
