@@ -1,18 +1,17 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
+        coins.sort()
         @lru_cache(None)
-        def cc(i,t):
-            if t==0:
+        def cc(amt,i):
+            if amt==0:
                 return 0
-            if i<0 or t<0:
-                return float('inf')
-            if coins[i]>t:
-                return cc(i-1,t)
-            a = 1+ cc(i,t-coins[i])
-            b = cc(i-1,t)
-            return min(a,b)
-        a = cc(len(coins)-1,amount)
-        return -1 if a==float('inf') else a
+            if amt<0 or i>=len(coins) or coins[i]>amount:
+                return float('inf')  
+            return min(1+cc(amt-coins[i],i),cc(amt,i+1))
+        x = cc(amount,0)
+        if x==float('inf'):
+            return -1
+        return x
             
             
         
