@@ -15,7 +15,7 @@ class Solution:
                     cells[index] = board[row][column]
                     index+=1
         q = [(1,0)]
-        m = {1:0}
+        s = set()
         while q:
             node,steps = q.pop(0)
             if cells[node]!=-1:
@@ -23,8 +23,8 @@ class Solution:
             if node == n**2:
                 return steps
             for i in range(node+1,node+7):
-                if i not in m:
-                    m[i]=steps+1
+                if i not in s:
+                    s.add(i)
                     q.append((i,steps+1))
         return -1
         
