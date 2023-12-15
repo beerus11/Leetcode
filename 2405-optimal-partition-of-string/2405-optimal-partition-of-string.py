@@ -1,12 +1,12 @@
 class Solution:
     def partitionString(self, s: str) -> int:
-        count = 0
-        ss = set()
-        for c in s:
-            if c in ss:
+        st = set()
+        count =0
+        for i in s:
+            if i in st:
                 count+=1
-                ss = set()      
-            ss.add(c)
+                st = set()
+            st.add(i)
         return count+1
         
         
