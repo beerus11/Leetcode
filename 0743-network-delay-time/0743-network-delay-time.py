@@ -3,21 +3,21 @@ class Solution:
         g = defaultdict(defaultdict)
         
         for a,b,c in times:
-            g[a][b] = c
+            g[a][b]=c
             
         q = [(k,0)]
-        m = {k:0}
+        hm = {i:float('inf') for i in range(1,n+1)}
         while q:
-            node,t = q.pop(0)
-            for nei,v in g[node].items():
-                x = v+t
-                if (nei not in m) or x < m[nei]:
-                    m[nei]=x
-                    q.append((nei,x))
-        #print(m)
-        if len(m)<n:
+            node,t = heapq.heappop(q)
+            if t>=hm[node]:
+                continue
+            hm[node]=t
+            for nei,time in g[node].items():
+                q.append((nei,t+time))
+        ans = max([v for k,v in hm.items()])
+        if ans==float('inf'):
             return -1
-        return max([v for k,v in m.items()])
+        return ans
                 
         
             
