@@ -1,17 +1,16 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
         self.dp = {}
-        def up(i,j):
+        def dfs(i,j):
             if (i,j) in self.dp:
                 return self.dp[(i,j)]
-            if i==m-1 and j ==n-1:
-                return 1
             if i>=m or j>=n:
                 return 0
-            a = up(i+1,j)
-            b = up(i,j+1)
-            self.dp[(i,j)]=a+b
+            if i==m-1 and j ==n-1:
+                return 1
+            self.dp[(i,j)] = dfs(i+1,j) + dfs(i,j+1)
             return self.dp[(i,j)]
-        return up(0,0)
+        return dfs(0,0)
+
             
         
