@@ -15,7 +15,6 @@ class Solution:
         mxt = -1
         while q:
             i,j,t = q.pop(0)
-            print(i,j,t)
             if grid[i][j]==0:
                 continue
             count+=1
