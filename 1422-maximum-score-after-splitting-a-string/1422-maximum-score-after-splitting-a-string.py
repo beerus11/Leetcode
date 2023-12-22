@@ -6,14 +6,12 @@ class Solution:
             if i=="0":
                 count+=1
             z.append(count)
-        z.append(0)
         count = 0
         for i in s[::-1]:
             if i=="1":
                 count+=1
             o.append(count)
         o = o[::-1]
-        o.append(0)
         mx = -1
         for i in range(1,len(s)):
             mx = max(mx,z[i-1]+o[i])
