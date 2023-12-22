@@ -14,7 +14,6 @@ class Solution:
             o.append(count)
         o = o[::-1]
         o.append(0)
-        print(z,o)
         mx = -1
         for i in range(1,len(s)):
             mx = max(mx,z[i-1]+o[i])
