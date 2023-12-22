@@ -1,20 +1,13 @@
 class Logger:
 
     def __init__(self):
-        self.logs = defaultdict(set)
+        self.hm = defaultdict(int)
         
 
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
-        ans = []
-        if timestamp in self.logs and message in self.logs[timestamp]:
+        if message in self.hm and timestamp-self.hm[message]<10:
             return False
-        start = 0 if timestamp-9<0 else timestamp-9
-        for i in range(start,timestamp):
-            if message == "foo" and timestamp==11:
-                print(i,self.logs[i])
-            if i in self.logs and message in self.logs[i] :
-                return False
-        self.logs[timestamp].add(message)
+        self.hm[message] = timestamp
         return True
         
 
