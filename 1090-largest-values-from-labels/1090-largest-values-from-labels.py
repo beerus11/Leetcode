@@ -6,10 +6,8 @@ class Solution:
         limit_map = defaultdict(int)
         ans = 0
         values.sort(reverse=True)
-        print(values)
         for i in range(len(values)):
             label = mp[values[i]].pop(0)
-            print(label)
             if limit_map[label]< useLimit:
                 numWanted-=1
                 limit_map[label]+=1
