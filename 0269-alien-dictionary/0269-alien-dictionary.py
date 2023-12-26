@@ -13,8 +13,7 @@ class Solution:
                         indegree[b]+=1
                         break
                 else:
-                    if len(words[i+1]) < len(words[i]): return ""
-        print(g)    
+                    if len(words[i+1]) < len(words[i]): return ""   
         q = []
         for k,v in indegree.items():
             if v==0:
