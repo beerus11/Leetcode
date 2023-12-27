@@ -10,21 +10,23 @@ class Solution:
                 g[r].append(k)
         q = deque([(source,0)])
         
-        seen_stops = set()
-        seen_bus = set()
+        bus_seen = set()
+        stop_seen = set()
         while q:
-            node,count = q.popleft()
-            if node == target:
-                return count
-            for bus_no in g[node]:
-                if bus_no not in seen_bus:
-                    seen_bus.add(bus_no)
-                    for stop in routes[bus_no]:
-                        if stop not in seen_stops:
-                            seen_stops.add(stop)
-                            q.append((stop,count+1))
+            s,c= q.popleft()
+            if s == target:
+                return c
+            for r in g[s]:
+                if r not in bus_seen:
+                    bus_seen.add(r)
+                    for stop in routes[r]:
+                        if stop not in stop_seen:
+                            stop_seen.add(stop)
+                            q.append((stop,c+1))
         return -1
-                    
+                            
+                
+                
                 
                 
         
