@@ -10,6 +10,6 @@ class Solution:
             elif v%3==2:
                 ans+= v//3 +1
             elif v%3==1:
-                ans+=  (v - 3) // 3 + 2
+                ans+=  (v - 4)//3 + 2
         return ans
         
