@@ -5,7 +5,7 @@ class Solution:
         def dfs(i,j):
             if grid[i][j]==0:
                 return
-            grid[i][j]=0
+            grid[i][j]=-1
             q.append((i,j,0))
             for a,b in [(1,0),(0,1),(-1,0),(0,-1)]:
                 x,y = i+a,j+b
