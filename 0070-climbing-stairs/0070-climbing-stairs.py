@@ -1,10 +1,6 @@
 class Solution:
+    @lru_cache(None)
     def climbStairs(self, n: int) -> int:
-        @lru_cache(None)
-        def dfs(x):
-            if x<=1:
-                return x
-            if x==2:
-                return 2
-            return dfs(x-1)+dfs(x-2)
-        return dfs(n)
+        if n<=2:
+            return n
+        return self.climbStairs(n-1)+self.climbStairs(n-2)
