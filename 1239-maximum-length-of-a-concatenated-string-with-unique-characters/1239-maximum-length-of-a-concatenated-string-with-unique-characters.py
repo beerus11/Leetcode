@@ -1,16 +1,12 @@
-class Solution(object):
-    def maxLength(self, arr):
-        """
-        :type arr: List[str]
-        :rtype: int
-        """
-        return self.dfs(arr,0,"")
+class Solution:
+    def maxLength(self, arr: List[str]) -> int:
+        def ml(i,s):
+            if i==len(arr):
+                return 0
+            t = set(arr[i])
+            if len(t-s)<len(t) or len(set(arr[i]))<len(arr[i]):
+                return ml(i+1,s)
+            else:
+                return max(len(arr[i])+ml(i+1,s.union(t)),ml(i+1,s))
+        return ml(0,set())
         
-    def dfs(self,arr,pos,res):
-        if len(res) != len(set(res)):
-            return 0
-        best = len(res)
-        for i in range(pos,len(arr)):
-            best = max(best,self.dfs(arr,i+1,res+arr[i]))
-        return best
-            
