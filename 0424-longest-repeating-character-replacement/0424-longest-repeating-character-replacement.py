@@ -1,18 +1,19 @@
 class Solution:
-    def characterReplacement(self, s: str, k: int) -> int:
-        ls = 0
-        st = 0
-        m = defaultdict(int)
-        mf  = 0 
-        for i in range(len(s)):
-            m[s[i]]+=1
-            mf = max(mf,m[s[i]])
+    def characterReplacement(self, s: str, K: int) -> int:
+        ans = float('-inf')
+        hm = defaultdict(int)
+        mf = 0
+        l = 0
+        for k,v in enumerate(s):
+            hm[v]+=1
+            mf = max(mf,hm[v])
             
-            is_valid = (i+1-st-mf<=k)
+            is_valid = (k+1-l-mf<=K)
+            
             if not is_valid:
-                m[s[st]]-=1
-                st+=1
+                hm[s[l]]-=1
+                l+=1
+            ans = k+1-l
             
-            ls = i+1-st
-        return ls
+        return ans
         
