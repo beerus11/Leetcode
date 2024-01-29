@@ -1,18 +1,31 @@
 class Solution:
-    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        W,G,B = 0,1,2
-        colors = defaultdict(int)
-        def dfs(node):
-            if colors[node]!=W:
-                return colors[node]==B
-            colors[node]=G
-            for nei in graph[node]:
-                if colors[nei]==B:
-                    continue
-                if colors[nei]==G or not dfs(nei):
-                    return False
-            colors[node]=B
+    def dfs(self,node):
+        if node in self.stack:
             return True
+        if node in self.visited:
+            return False
+        self.visited.add(node)
+        self.stack.add(node)
         
-        return list(filter(dfs,range(len(graph))))
+        for nei in self.graph[node]:
+            if self.dfs(nei):
+                return True
+        self.stack.remove(node)
+        return False
+            
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        self.visited = set()
+        self.stack = set()
+        self.graph = graph
         
+        self.v = len(graph)
+        
+        for i in range(self.v):
+            self.dfs(i)
+            
+        ans = []
+        for i in range(self.v):
+            if i not in self.stack:
+                ans.append(i)
+        
+        return ans
