@@ -1,13 +1,13 @@
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        w = []
+        w = deque([])
         hm = defaultdict(int)
         ans = 0
         for k,v in enumerate(fruits):
             hm[v]+=1
             w.append(v)
             while len(hm)>2:
-                e = w.pop(0)
+                e = w.popleft()
                 hm[e]-=1
                 if hm[e]==0:
                     del hm[e]
