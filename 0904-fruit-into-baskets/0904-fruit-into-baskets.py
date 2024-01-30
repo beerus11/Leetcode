@@ -1,16 +1,16 @@
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        basket = defaultdict(int)
-        left = 0
+        w = []
+        hm = defaultdict(int)
         ans = 0
-        for right,value in enumerate(fruits):
-            basket[value]+=1
-            while len(basket)>2:
-                basket[fruits[left]]-=1
-                if basket[fruits[left]]==0:
-                    del basket[fruits[left]]
-                left+=1
-            ans = max(ans,right-left+1)
+        for k,v in enumerate(fruits):
+            hm[v]+=1
+            w.append(v)
+            while len(hm)>2:
+                e = w.pop(0)
+                hm[e]-=1
+                if hm[e]==0:
+                    del hm[e]
+            ans = max(ans,len(w))
         return ans
             
-        
