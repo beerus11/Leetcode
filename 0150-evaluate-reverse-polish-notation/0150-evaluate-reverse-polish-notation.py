@@ -1,24 +1,23 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
+        exp = 0
         st = []
-        s = set(['+','-','*','/'])
-        for ch in tokens:
-            if ch in s:
-                b = st.pop()
-                a = st.pop()
-                if ch=="+":
-                    st.append(a+b)
-                elif ch=="-":
-                    st.append(a-b)
-                elif ch=="*":
-                    st.append(a*b)
-                elif ch=="/":
-                    if a==0:
-                        st.append(0)
-                    else:
-                        sign = (a*b)/abs(a*b)
-                        x = abs(a)//abs(b)
-                        st.append(int(sign*x))
+        def get_last(st):
+            return st.pop(),st.pop()
+        for token in tokens:
+            if token == "+":
+                b,a = get_last(st)
+                st.append(a+b)
+            elif token == "-":
+                b,a = get_last(st)
+                st.append(a-b)
+            elif token == "*":
+                b,a = get_last(st)
+                st.append(a*b)
+            elif token == "/":
+                b,a = get_last(st)
+                st.append(int(a/b))
             else:
-                st.append(int(ch))
-        return st.pop()
+                st.append(int(token))
+        return st[0]
+        
