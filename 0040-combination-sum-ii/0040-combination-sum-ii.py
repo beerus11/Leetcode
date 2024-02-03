@@ -1,23 +1,20 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        def backtrack(comb, remain, curr, results):
-            if remain == 0:
-                results.append(list(comb))
-                return
-
-            for next_curr in range(curr, len(candidates)):
-                if next_curr > curr \
-                  and candidates[next_curr] == candidates[next_curr-1]:
-                    continue
-                pick = candidates[next_curr]
-                if remain - pick < 0:
-                    break
-                comb.append(pick)
-                backtrack(comb, remain - pick, next_curr + 1, results)
-                comb.pop()
-
+        ans = []
+        ds = []
         candidates.sort()
-
-        comb, results = [], []
-        backtrack(comb, target, 0, results)
-        return results
+        def findCombination(ind,target):
+            if target == 0:
+                ans.append(ds[:])
+                return
+            for i in range(ind, len(candidates)):
+                if i > ind and candidates[i] == candidates[i - 1]:
+                    continue
+                if candidates[i] > target:
+                    break
+                ds.append(candidates[i])
+                findCombination(i + 1, target - candidates[i])
+                ds.pop()
+        findCombination(0, target)
+        return ans
+        
