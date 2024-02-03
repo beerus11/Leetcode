@@ -1,18 +1,16 @@
-import math
 class Solution:
-    def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        def tt(arr,x):
+    def minEatingSpeed(self, piles: List[int], hr: int) -> int:
+        def get_hour(m):
             t = 0
-            for i in arr:
-                t+= math.ceil(i/x)
+            for i in piles:
+                t+=math.ceil(i/m)
             return t
-        
-        l,r = 1,max(piles)
-        while l<r:
-            mid = l+(r-l)//2
-            if tt(piles,mid)  <= h:
-                r = mid
+        l,h=1,max(piles)
+        while l<h:
+            m = l+(h-l)//2
+            if get_hour(m)<=hr:
+                h=m
             else:
-                l = mid+1
-        return r
-            
+                l=m+1
+        return h
+                
