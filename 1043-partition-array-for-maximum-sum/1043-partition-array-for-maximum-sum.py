@@ -1,19 +1,16 @@
 class Solution:
     def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
-        self.dp = {}
-        def msa(nums,index):
-            if index >= len(nums):
+        @lru_cache(None)
+        def maxSum(start):
+            if start>=len(arr):
                 return 0
-            if index in self.dp:
-                return self.dp[index]
-            ans = -1*float('inf')
-            maxInt = -1*float('inf')
-            l = 0
-            for i in range(index,min(index+k,len(nums))):
-                l+=1
-                maxInt = max(maxInt,nums[i])
-                s = l*maxInt + msa(nums,i+1)
-                ans = max(ans,s)
-            self.dp[index]= ans
-            return ans
-        return msa(arr,0)
+            curr_sum = 0
+            curr_max = 0
+            end = min(len(arr),start+k)
+            for i in range(start,end):
+                curr_max = max(curr_max,arr[i])
+                curr_sum = max(curr_sum,curr_max*(i-start+1)+maxSum(i+1))
+            return curr_sum
+        return maxSum(0)
+                
+        
