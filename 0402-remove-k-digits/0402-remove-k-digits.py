@@ -1,14 +1,10 @@
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
-        numStack = []
-        for digit in num:
-            while k and numStack and numStack[-1] > digit:
-                numStack.pop()
+        st = []
+        for i in num:
+            while k and st and st[-1]>i:
+                st.pop()
                 k-=1
-            numStack.append(digit)
-            
-        finalStack = numStack[:-k] if k else numStack
-        
-        return "".join(finalStack).lstrip('0') or "0"
-                
-        
+            st.append(i)
+        ans = st[:-k] if k else st
+        return "".join(ans).lstrip("0") or "0"
