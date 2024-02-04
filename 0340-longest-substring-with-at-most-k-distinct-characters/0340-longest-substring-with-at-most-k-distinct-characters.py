@@ -1,19 +1,15 @@
 class Solution:
-    def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
-        q = []
+    def lengthOfLongestSubstringKDistinct(self, s: str, K: int) -> int:
+        ans = 0
+        left =0
         hm = defaultdict(int)
-        mxL = 0
-        p = 0
-        for i in range(len(s)):
-            hm[s[i]]+=1
-            
-            while len(hm)>k:
-                hm[s[p]]-=1
-                if hm[s[p]]==0:
-                    del hm[s[p]]
-                p+=1
-                
-            mxL = max(mxL,i-p+1)
-        return mxL
-            
+        for k,v in enumerate(s):
+            hm[v]+=1
+            while len(hm)>K:
+                hm[s[left]]-=1
+                if hm[s[left]]==0:
+                    del hm[s[left]]
+                left+=1
+            ans = max(ans,k-left+1)
+        return ans
         
