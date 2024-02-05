@@ -1,22 +1,28 @@
-import heapq
 class Solution:
     def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
-        d = {i:0 for i in range(n)}
-        rh = list(range(n))
+        meetings.sort()
+        rooms = list(range(n))
+        heapq.heapify(rooms)
+        hm = defaultdict(int)
         heap = []
         
-        meetings.sort(key=lambda x:x[0])
         for a,b in meetings:
             while heap and heap[0][0]<=a:
-                heapq.heappush(rh,heapq.heappop(heap)[1])
-            if rh:
-                room = heapq.heappop(rh)
+                _,r = heapq.heappop(heap)
+                heapq.heappush(rooms,r)
+                
+            if len(rooms)>0:
+                room = heapq.heappop(rooms)
                 heapq.heappush(heap,(b,room))
+                hm[room]+=1
             else:
-                x,room = heapq.heappop(heap)
-                heapq.heappush(heap,(b-a+x,room))
-            d[room]+=1
-        arr = sorted(d.items(),key= lambda x:(x[1],-1*x[0]),reverse=True)
-        return arr[0][0]
+                end_time,room = heapq.heappop(heap)
+                diff = end_time-a
+                new_end = b+diff
+                heapq.heappush(heap,(new_end,room))
+                hm[room]+=1
+        return sorted(hm.items(),key=lambda x:x[1],reverse=True)[0][0]
+                
+                
             
         
