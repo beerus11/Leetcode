@@ -1,11 +1,8 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        m = defaultdict(list)
-        for k,v in enumerate(strs):
-            s = "".join(sorted(v))
-            m[s].append(v)
-        return m.values()
-                
-            
-        
+        hm = defaultdict(list)
+        for a in strs:
+            x = "".join(sorted(a))
+            hm[x].append(a)
+        return hm.values()
         
