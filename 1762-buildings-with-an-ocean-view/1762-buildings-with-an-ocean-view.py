@@ -1,17 +1,17 @@
 class Solution:
     def findBuildings(self, heights: List[int]) -> List[int]:
-        st = []
-        ans = []
+        ngl = []
         for i in range(len(heights)-1,-1,-1):
-            if i==len(heights)-1:
-                ans.append(i)
+            if not ngl:
+                ngl.append(heights[i])
             else:
-                while len(st)>0 and st[-1]<heights[i]:
-                    st.pop()
-                if len(st)==0:
-                    ans.append(i)
-            st.append(heights[i])
-                
+                ngl.append(max(ngl[-1],heights[i]))
+        ngl=ngl[::-1]
+        ans = []
+        for i in range(len(heights)-1):
+            if heights[i]>ngl[i+1]:
+                ans.append(i)
+        ans.append(len(heights)-1)
+        return ans
             
-        return ans[::-1]
         
