@@ -1,18 +1,9 @@
-from collections import defaultdict
-class Solution(object):
-    def frequencySort(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        d = defaultdict(int)
-        for i in s:
-            d[i]+=1
-        arr = sorted(d.items(),key=lambda x:x[1],reverse=True)
-        ans = []
-        for i in arr:
-            ans.append(i[0]*i[1])
-        return "".join(ans)
-            
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        m = Counter(s)
+        arr = []
+        for k,v in sorted(m.items(),key=lambda x:x[1],reverse=True):
+            arr.append(v*k)
+        return "".join(arr)
             
         
