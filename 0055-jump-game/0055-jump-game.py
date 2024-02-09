@@ -1,12 +1,14 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        reachable = 0
-        
-        for i in range(len(nums)):
-            if reachable<i:
+        @lru_cache(None)
+        def reach(i):
+            if i>=len(nums):
                 return False
-            reachable = max(reachable,i+nums[i])
-        return True
-            
-            
-        
+            if i==len(nums)-1:
+                return True
+            for j in range(1,nums[i]+1):
+                if reach(i+j):
+                    return True
+            return False
+        return reach(0)
+                
