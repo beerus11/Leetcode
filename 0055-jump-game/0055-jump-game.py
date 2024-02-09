@@ -6,7 +6,7 @@ class Solution:
                 return False
             if i==len(nums)-1:
                 return True
-            for j in range(1,nums[i]+1):
+            for j in range(nums[i],0,-1):
                 if reach(i+j):
                     return True
             return False
