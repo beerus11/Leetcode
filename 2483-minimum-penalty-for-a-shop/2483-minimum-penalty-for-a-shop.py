@@ -18,4 +18,9 @@ class Solution:
             ans.append(l[k]+r[k])
         mn = min(ans)
         return ans.index(mn)
+                
+            
+                
+            
+                
         
