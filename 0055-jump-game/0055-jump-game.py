@@ -1,14 +1,8 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        @lru_cache(None)
-        def reach(i):
-            if i>=len(nums):
-                return False
-            if i==len(nums)-1:
-                return True
-            for j in range(nums[i],0,-1):
-                if reach(i+j):
-                    return True
-            return False
-        return reach(0)
+        last_pos = len(nums)-1
+        for i in range(len(nums)-1,-1,-1):
+            if i+nums[i]>=last_pos:
+                last_pos=i
+        return last_pos ==0
                 
