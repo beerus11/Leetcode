@@ -1,11 +1,9 @@
 class ProductOfNumbers:
 
     def __init__(self):
-        self.arr = []
         self.prod = []
 
     def add(self, num: int) -> None:
-        self.arr.append(num)
         if num==0:
             self.prod = []
         elif len(self.prod)==0:
