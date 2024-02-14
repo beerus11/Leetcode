@@ -2,26 +2,33 @@ class Solution:
     def maximumDetonation(self, bombs: List[List[int]]) -> int:
         g = defaultdict(list)
         
-        n = len(bombs)
+        def dist(a,b,c,d):
+            return (a-c)**2 + (b-d)**2
         
-        for i in range(n):
-            xi,yi,ri = bombs[i]
-            for j in range(n):
+        for i in range(len(bombs)):
+            for j in range(len(bombs)):
                 if i==j:
                     continue
-                xj,yj,_= bombs[j]
-                if ri**2 >= (xi-xj)**2 + (yi-yj)**2 :
+                a,b,r1 = bombs[i]
+                c,d,r2 = bombs[j]
+                distance = dist(a,b,c,d)
+                if distance<=r1**2:
                     g[i].append(j)
-        def dfs(cur,visited):
-            visited.add(cur)
-            for nei in g[cur]:
-                if nei not in visited:
-                    dfs(nei,visited)
-            return len(visited)
+                    
+        def bfs(node):
+            q = deque([node])
+            v = set([node])
+            while q:
+                n = q.popleft()
+                for nei in g[n]:
+                    if nei not in v:
+                        v.add(nei)
+                        q.append(nei)
+            return len(v)
+                        
+                    
+        mx = 0            
+        for i in range(len(bombs)):
+            mx = max(mx,bfs(i))
+        return mx
         
-        ans = 0
-        for i in range(n):
-            visited = set()
-            ans = max(ans,dfs(i,visited))
-            
-        return ans
