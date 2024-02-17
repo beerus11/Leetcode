@@ -6,17 +6,18 @@
 #         self.right = right
 class Solution:
     def findDuplicateSubtrees(self, root: Optional[TreeNode]) -> List[Optional[TreeNode]]:
-        self.hm = defaultdict(int)
-        self.res = []
+        ans = []
+        d = defaultdict(int)
         def dfs(node):
             if not node:
-                return ''
-            l,r = dfs(node.left),dfs(node.right)
-            struct = 'l%s_%s_%sr'%(l,str(node.val),r)
-            self.hm[struct]+=1
-            if self.hm[struct]==2:
-                self.res.append(node)
-            return struct
-        dfs(root)
-        return self.res
+                return ""
+            rep = ("(" + dfs(node.left)+ ")" +str(node.val)+ "(" +dfs(node.right)+ ")")
+            d[rep]+=1
+            if d[rep]==2:
+                ans.append(node)
+            return rep
                 
+        dfs(root)
+        return ans
+                
+        
