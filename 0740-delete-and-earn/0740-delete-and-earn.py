@@ -1,18 +1,18 @@
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
+        nums.sort()
         points = defaultdict(int)
-        max_no = 0
-        for n in nums:
-            points[n]+=n
-            max_no = max(max_no,n)
+        for num in nums:
+            points[num]+=num
             
+        arr = sorted(points.keys())
+        two_back = 0
+        one_back = points[arr[0]]
         
-        @cache
-        def max_points(num):
-            if num ==0:
-                return 0
-            if num ==1:
-                return points[1]
-            return max(max_points(num-1),max_points(num-2)+points[num])
-        return max_points(max_no)
-        
+        for i in range(1,len(arr)):
+            curr = arr[i]
+            if curr-1 == arr[i-1]:
+                two_back,one_back = one_back, max(one_back,two_back+points[curr])
+            else:
+                two_back,one_back = one_back,one_back+points[curr]
+        return one_back
