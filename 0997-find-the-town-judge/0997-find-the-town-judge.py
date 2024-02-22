@@ -1,26 +1,28 @@
 class Solution:
     def findJudge(self, n: int, trust: List[List[int]]) -> int:
-        if len(trust)==0 and n==1:
+        if n==1 and trust==[]:
             return 1
-        if len(trust)==0 and n>-1:
+        m = defaultdict(int)
+        persons = set()
+        non_judges = set()
+        mx_trust = 0
+        judge = -1
+        for item in trust:
+            a,b = item
+            m[b]+=1
+            if m[b]>mx_trust:
+                mx_trust =m[b]
+                judge=b
+            persons.add(a)
+            non_judges.add(a)
+            persons.add(b)
+                  
+        if mx_trust!=len(persons)-1 or judge in non_judges:
             return -1
-        
-        
-        g = defaultdict(list)
-        
-        indegree = {i:0 for i in range(1,n+1)}
-        outdegree = {i:0 for i in range(1,n+1)}
-        
-        for a,b in trust:
-            indegree[b]+=1
-            outdegree[a]+=1
-        
-        arr = []
-        for k,v in outdegree.items():
-            if v==0 and indegree[k]==n-1:
-                arr.append(k)
-        
-        return arr[0] if len(arr)==1 else -1
+        for k,v in m.items():
+            if v==mx_trust and k!=judge:
+                return -1
             
-                
-        
+        return judge
+    
+    
