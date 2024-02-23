@@ -9,9 +9,9 @@ class Solution:
         
         while q:
             cost,node,stops = heappop(q)
-            if node==dst and stops-1<=k:
+            if node==dst:
                 return cost
-            if node in v and v[node]<stops:
+            if stops>k or (node in v and v[node]<stops):
                 continue
             v[node]=stops
             for nei,c in g[node]:
