@@ -2,18 +2,17 @@ class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         arr = list(range(1,n+1))
         self.ans = []
-        def comb(i,path):
-            if len(path)==k:
-                self.ans.append(path[:])
+        def gen(i,nums):
+            if len(nums)==k:
+                self.ans.append(nums[:])
                 return
             if i==len(arr):
                 return
-            path.append(arr[i])
-            comb(i+1,path)
-            path.pop()
-            comb(i+1,path)
-        
-        comb(0,[])
+            nums.append(arr[i])
+            gen(i+1,nums)
+            nums.pop()
+            gen(i+1,nums)
+        gen(0,[])
         return self.ans
-                
+        
         
