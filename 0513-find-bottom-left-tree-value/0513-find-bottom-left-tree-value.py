@@ -6,13 +6,18 @@
 #         self.right = right
 class Solution:
     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
-        self.hm = defaultdict(list)
-        def dfs(node,h):
-            if node is None:
-                return
-            self.hm[h].append(node.val)
-            dfs(node.left,h+1)
-            dfs(node.right,h+1)
-        dfs(root,0)
-        return self.hm[len(self.hm)-1][0]
+        q = [(0,root)]
+        hm = defaultdict(list)
+        mxl = -1
+        while q:
+            l,node = q.pop(0)
+            mxl = max(mxl,l)
+            if l-1 in hm:
+                del hm[l-1]
+            hm[l].append(node.val)
+            if node.left:
+                q.append((l+1,node.left))
+            if node.right:
+                q.append((l+1,node.right))
+        return hm[mxl][0]
         
