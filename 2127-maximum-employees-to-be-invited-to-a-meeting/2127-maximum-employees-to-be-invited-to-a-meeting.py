@@ -6,7 +6,7 @@ class UnionFind:
     def find(self, x):
         if x != self.parents[x]:
             return self.find(self.parents[x])
-        return self.parents[x]
+        return x
     
     def union(self, x, y):
         xr, yr = self.find(x), self.find(y)
@@ -42,6 +42,7 @@ class Solution:
             if inDegree[i]:
                 uf.union(i, favorite[i])
         print(uf.size)
+        print(inDegree)
 
         join = 0
         res = 0
