@@ -5,7 +5,7 @@ class UnionFind:
     
     def find(self, x):
         if x != self.parents[x]:
-            self.parents[x] = self.find(self.parents[x])
+            return self.find(self.parents[x])
         return self.parents[x]
     
     def union(self, x, y):
@@ -22,33 +22,27 @@ class Solution:
         tail_length = [1] * n
         inDegree = [0] * n
         
-        # Building Topological Sequences
         for curr in range(n):
             inDegree[favorite[curr]] += 1
             
-        # Calculating the length of tail of each popular person
         queue = deque([c for c in range(n) if inDegree[c] == 0])
         
         while queue:
             curr = queue.popleft()
             fav = favorite[curr]
-            # beacuse `fav` also have his own preference, as a result, if it previously has a tail
-            # in other word, ans[fav] > 1, then we want to pick the largest one between the previous
-            # tail and current tail
             tail_length[fav] = max(tail_length[fav], tail_length[curr] + 1)
             inDegree[fav] -= 1
             if inDegree[fav] == 0:
                 queue.append(fav)
+        print(inDegree,tail_length)
                 
         # Building the Union Find of popular person
         uf = UnionFind(n)
         for i in range(n):
             if inDegree[i]:
                 uf.union(i, favorite[i])
-                
-        # Two Situation:
-        # Either we pick two popular person who like each other and join them together (Union Find size = 2)
-        # or we we can select the size of this popluar person group (Union Find size > 2)
+        print(uf.size)
+
         join = 0
         res = 0
         for i in range(n):
