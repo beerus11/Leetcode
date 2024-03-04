@@ -19,8 +19,8 @@ class DSU:
     
     def find(self,a):
         if a!=self.parents[a]:
-            return self.find(self.parents[a])
-        return a
+            self.parents[a] = self.find(self.parents[a])
+        return self.parents[a]
 class Solution:
     def minimumCost(self, n: int, connections: List[List[int]]) -> int:
         connections.sort(key=lambda x:x[2])
