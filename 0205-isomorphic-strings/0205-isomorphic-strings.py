@@ -1,13 +1,15 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        m = {}
-        m2 = {}
-        for k,v in enumerate(t):
-            if s[k] in m and m[s[k]]!=v:
+        if len(s)!=len(t):
+            return False
+        st= {}
+        ts= {}
+        for i,j in list(zip(s,t)):
+            if i not in st and j not in ts:
+                st[i]=j
+                ts[j]=i
+            if st.get(i)!=j or ts.get(j)!=i:
                 return False
-            m[s[k]]=v
-            
-            if v in m2 and m2[v]!=s[k]:
-                return False
-            m2[v]=s[k]
         return True
+                
+        
